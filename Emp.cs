@@ -29,7 +29,7 @@ namespace Batch1_DET_2022
 
         public float GetNetSalary()
         {
-            return (GSalary - Pf)*12;
+            return (GSalary - Pf);
         }
 
         public string GetGrade()
@@ -43,7 +43,7 @@ namespace Batch1_DET_2022
             {
                 return "B";
             }
-            else
+            else 
             {
                 return "C";
             }
