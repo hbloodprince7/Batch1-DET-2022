@@ -41,16 +41,25 @@ namespace Batch1_DET_2022
 
             return age;
         }
+        public int BirthYear()
+        {
+            return DOB.Year;
+        }
+        public string GetInfo()
+        {
+            return $"{FirstName} {LastName}";
+        }
 
-        public string GetWeddingAgeStatus(int age)
-        {   
-            if(age > 21)
+        public string IsAdult()
+        {
+            int age = CalculateAge(DOB);
+            if (age > 18)
             {
-                return "ELIGIBLE TO MARRY";
+                return "Is Adult";
             }
             else
             {
-                return "INELIGIBLE TO MARRY";
+                return "Is not an Adult";
             }
         }
         public string GetSunSign()
@@ -92,11 +101,11 @@ namespace Batch1_DET_2022
             var dateNow = DateOnly.FromDateTime(DateTime.Now);
             if(DOB == dateNow)
             {
-                return "IT IS THE PERSONS BIRTHDAY";
+                return "IT IS THE PERSON'S BIRTHDAY";
             }
             else
             {
-                return "IT IS NOT THE BIRTHDAY";
+                return "IT IS NOT THE PERSON'S BIRTHDAY";
             }
         }
         public string DefaultUsername()

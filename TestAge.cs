@@ -19,7 +19,7 @@ namespace Batch1_DET_2022
 
                 if (age < 1 || age > 100)
                 {
-                    throw new InvalidAgeException("ENTER VALID AGE");
+                    throw new InvalidAgeException("INVALID");
                 }
                 Console.WriteLine(B);
             }
