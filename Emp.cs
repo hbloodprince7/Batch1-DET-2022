@@ -8,45 +8,38 @@ namespace Batch1_DET_2022
 {
     public class Emp
     {
-        int Id;
-        string Name;   
-        string Address;
-        int Pin;
-        int Phone;
-        float GSalary;
-        float Pf;
+        //data declared inside class are known as "fields"
+        int id;
+        string name;
+        string dept;
+        double sal;
+        DateOnly doj;
 
-        public Emp(int id, string name, string address, int pin, int phone, float gSalary, float pf)
+        //constructor - is a function used to init object data
+        //has the same name as classname, no ret type
+        public Emp(int id, string name, DateOnly doj)
         {
-            this.Id = id;
-            this.Name = name;
-            this.Address = address;
-            this.Pin = pin;
-            this.Phone = phone;
-            this.GSalary = gSalary;
-            this.Pf = pf;
+            this.id = id; this.name = name; this.doj = doj;
+        }
+        public Emp()
+        {
+            id = -1; name = "no name";
+        }
+        public Emp(int id, string name)
+        {
+            this.id = id; this.name = name;
         }
 
-        public float GetNetSalary()
+        //function written inside a class is known as method
+        public int GetYearsofExp()
         {
-            return (GSalary - Pf);
+            return DateTime.Now.Year - doj.Year;
         }
 
-        public string GetGrade()
+        public virtual string Print()   //only virtual method can be overridden
         {
-            float net = GetNetSalary();
-            if(net > 10000)
-            {
-                return "A";
-            }
-            else if (net > 5000 && net < 10000)
-            {
-                return "B";
-            }
-            else 
-            {
-                return "C";
-            }
+            return $"Emp Id={id}, Name={name}, Experience={GetYearsofExp()} Years";
         }
+
     }
 }
