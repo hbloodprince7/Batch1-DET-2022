@@ -13,11 +13,11 @@ namespace Batch1_DET_2022
         string name;
         string dept;
         double sal;
-        DateOnly doj;
+        DateTime doj;
 
         //constructor - is a function used to init object data
         //has the same name as classname, no ret type
-        public Emp(int id, string name, DateOnly doj)
+        public Emp(int id, string name, DateTime doj)
         {
             this.id = id; this.name = name; this.doj = doj;
         }
