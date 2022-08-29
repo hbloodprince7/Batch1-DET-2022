@@ -99,5 +99,25 @@ namespace Batch1_DET_2022
                 return "IT IS NOT THE BIRTHDAY";
             }
         }
+        public string DefaultUsername()
+        {
+            return $"{FirstName}{LastName}{DOB.Year}";
+        }
+        public string ChineseZodiac()
+        {
+            int year = DOB.Year;
+            if (year % 12 == 0) { return "Monkey"; }
+            else if (year % 12 == 1) { return "Rooster"; }
+            else if (year % 12 == 2) { return "Dog"; }
+            else if (year % 12 == 3) { return "Pig"; }
+            else if (year % 12 == 4) { return "Rat"; }
+            else if (year % 12 == 5) { return "Ox"; }
+            else if (year % 12 == 6) { return "Tiger"; }
+            else if (year % 12 == 7) { return "Rabbit"; }
+            else if (year % 12 == 8) { return "Dragon"; }
+            else if (year % 12 == 9) { return "Snake"; }
+            else if (year % 12 == 10) { return "Horse"; }
+            else { return "Sheep"; }
+        }
     }
 }
