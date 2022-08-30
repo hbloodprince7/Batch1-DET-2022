@@ -6,16 +6,38 @@ using System.Threading.Tasks;
 
 namespace Batch1_DET_2022
 {
-    public class Author
+    internal interface IEMail
     {
-        string name;
-        string email;
-        char gender;
-        public Author(string name, string email, char gender)
+        string SendEMail();
+    }
+
+    public interface INotify
+    {
+        string SendSMS();
+    }
+
+    class Author : IEMail, INotify
+    {
+        public string Name { get; set; }
+        public string EMail { get; set; }
+        public char Gender { get; set; }
+
+        public string SendEMail()
         {
-            this.name = name;
-            this.email = email;
-            this.gender = gender;
+            return $"Mail sent to {Name}, {EMail},{Gender}";
+        }
+
+        public string SendSMS()
+        {
+            return $"{Name} subscribed SMS notifications";
+        }
+    }
+
+    class SITLAuthor : Author, IEMail
+    {
+        public string SendEMail()
+        {
+            return $"mail sent to Name={Name}, EMail={EMail},Gender={Gender}";
         }
     }
 }
