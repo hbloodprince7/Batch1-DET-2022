@@ -15,9 +15,7 @@ namespace Batch1_DET_2022
         {
             this.name = name;
             this.email = email;
-            this.gender = gender;  
+            this.gender = gender;
         }
-
     }
-
 }

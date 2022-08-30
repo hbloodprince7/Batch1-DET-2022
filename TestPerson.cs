@@ -13,13 +13,17 @@ namespace Batch1_DET_2022
         {
             try
             {
-                Person t = new Person("Tony", "Stark", "tonystark@stark.com", new DateOnly(1988, 05, 04));
+                Person t = new Person("Anthony", "Stark", "tonystark@stark.com", new DateOnly(1970, 05, 29));
                 int byear = t.BirthYear();
-                if (byear < 1900 || byear > 2022)
+                if (byear < 1900 )
                 {
-                    throw new InvalidBirthYearException("ENTER VALID BIRTH YEAR");
+                    throw new InvalidBirthYearException("ENTER VALID BIRTH YEAR AFTER 1900");
                 }
-                string r = t.GetSunSign();
+                else if (byear > DateTime.Now.Year)
+                {
+                    throw new InvalidBirthYearException("BIRTH YEAR CANNOT BE IN THE FUTURE");
+                }
+                    string r = t.GetSunSign();
                 string s = t.ChineseZodiac();
                 string w = t.IsAdult();
                 string b = t.BDayStatus();
