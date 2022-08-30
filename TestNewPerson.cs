@@ -14,7 +14,7 @@ namespace Batch1_DET_2022
             NewStudent newstd2 = new NewStudent { Name = "Gwen Stacy", Address = " Hell's Kitchen, NY", Phone = "548-772654", Email = "gwen_stacy@marvel.com", YearStatus = 3};
 
             Faculty f1 = new Faculty { Name = "Mary Jane Watson", Address = "Central Park, NYC", Phone = "855-698533", Email = "mj_watson@marvel.com", Title="Junior Reporter", DateWhenHired = new DateOnly(2003, 8, 7), Office = "Daily Bugle Inc", Salary = 30000};
-            Staff s2 = new Staff { Name = "Karen Paige", Address = "Hell's Kitchen, NYC", Phone = "752-996558", Email = "k_page21@marvel.com", DateWhenHired = new DateOnly(2009, 2, 17), Office = "Nelson And Murdock", Salary = 17000 };
+            Staff s2 = new Staff { Name = "Karen Page", Address = "Hell's Kitchen, NYC", Phone = "752-996558", Email = "k_page21@marvel.com", DateWhenHired = new DateOnly(2009, 2, 17), Office = "Nelson And Murdock, Attorney's At Law", Salary = 17000 };
             Console.WriteLine("STUDENTS");
             Console.WriteLine($"Name = {newstd1.Name}");
             Console.WriteLine($"Address = {newstd1.Address}");
