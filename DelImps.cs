@@ -15,9 +15,12 @@ namespace Batch1_DET_2022
 
             Action<int, string> act1 = (int s, string sender) => { Console.WriteLine($"There are {s} new Messages from {sender}"); };
             act1.Invoke(4, "Ms. Potts");
-
+          
+            Func<int, int, int> multi = (x, y) => { return x * y; };
+            int result = multi(1, 6);
+            
             Action<int, string, string, int> act2 = (int a, string b, string c, int d) => { Console.WriteLine($"{a} sightings of {b} were reported around {c} Area in the {d} hour(s)"); };
-            act2.Invoke(7, "Obadiah Shane", "New York", 24);
+            act2.Invoke(result, "Aldrich Killian", "Los Angeles", 24);
 
 
         }
