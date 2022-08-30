@@ -21,6 +21,8 @@ namespace Batch1_DET_2022
             
             Action<int, string, string, int> act2 = (int a, string b, string c, int d) => { Console.WriteLine($"{a} new sightings of {b} were reported around {c} Area in the {d} hour(s)"); };
             act2.Invoke(result, "Aldrich Killian", "Los Angeles", 24);
+
+
         }
     }
 }
