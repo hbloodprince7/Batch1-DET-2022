@@ -19,10 +19,8 @@ namespace Batch1_DET_2022
             Func<int, int, int> multi = (x, y) => { return x * y; };
             int result = multi(1, 6);
             
-            Action<int, string, string, int> act2 = (int a, string b, string c, int d) => { Console.WriteLine($"{a} sightings of {b} were reported around {c} Area in the {d} hour(s)"); };
+            Action<int, string, string, int> act2 = (int a, string b, string c, int d) => { Console.WriteLine($"{a} new sightings of {b} were reported around {c} Area in the {d} hour(s)"); };
             act2.Invoke(result, "Aldrich Killian", "Los Angeles", 24);
-
-
         }
     }
 }
