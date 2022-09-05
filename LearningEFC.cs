@@ -1,4 +1,5 @@
 ﻿using Batch1_DET_2022.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,9 @@ namespace Batch1_DET_2022
             //DeleteEmployee();
             //UpdateEmployee();
             //GetEmployeesSP();
-            //GetEmployeesFromDept();
-            RemoveEmpUsingID();
+            GetEmployeesFromDept();
+            //RemoveEmpUsingID();
+            CallStoredProcwithSQLParamater_insert();
 
         }
 
@@ -30,7 +32,7 @@ namespace Batch1_DET_2022
 
             foreach (var emp in emps)
             {
-                Console.WriteLine(emp.Ename + ":" + emp.Sal);
+                Console.WriteLine(emp.Ename + "---" + emp.Sal);
             }
         }
 
@@ -48,11 +50,11 @@ namespace Batch1_DET_2022
             Emp employee = new Emp();
             try
             {
-                employee.Empno = 2999;
-                employee.Ename = "PETER";
+                employee.Empno = 7499;
+                employee.Ename = "MURDOCK";
                 employee.Deptno = 30;
-                employee.Comm = 76;
-                employee.Sal = 15000;
+                employee.Comm = 1500;
+                employee.Sal = 75000;
                 employee.Job = "INTERN";
                 ctx.Add(employee);
                 ctx.SaveChanges();
@@ -70,11 +72,11 @@ namespace Batch1_DET_2022
             try
             {
                 Emp employee = new Emp();
-                employee.Empno = 2999;
-                employee.Ename = "PETER";
+                employee.Empno = 7499;
+                employee.Ename = "MURDOCK";
                 employee.Deptno = 30;
-                employee.Comm = 76;
-                employee.Sal = 15000;
+                employee.Comm = 1500;
+                employee.Sal = 75000;
                 employee.Job = "INTERN";
                 ctx.Remove(employee);
                 ctx.SaveChanges();
@@ -121,7 +123,7 @@ namespace Batch1_DET_2022
         private static void GetEmployeesFromDept()
         {
             var ctx = new TrainingContext();
-            var employees = ctx.Emps.FromSqlRaw($"GetEmpDetailsFromDept @P0",10).ToList();
+            var employees = ctx.Emps.FromSqlRaw($"GetEmpDetailsFromDept @P0",30).ToList();
 
             foreach (var e in employees)
             {
@@ -131,10 +133,103 @@ namespace Batch1_DET_2022
         private static void RemoveEmpUsingID()
         {
             var ctx = new TrainingContext();
-            var eno = 7934;
+            var eno = 2999;
             int rowsAffected = ctx.Database.ExecuteSqlRaw($"RemoveEmployee {eno}");
             Console.WriteLine($"No Of Rows Affected {rowsAffected}");
         }
+        private static void CallStoredProcwithSQLParamater_insert()
+        {
+            var ctx = new TrainingContext();
+            var param = new SqlParameter[] {
+                        new SqlParameter() {
+                            ParameterName = "@empno",
+                            SqlDbType =  System.Data.SqlDbType.Int,
+                            Size = 100,
+                            Direction = System.Data.
+                            ParameterDirection.Input,
+                            Value = 7734
+                        },
+                        new SqlParameter() {
+                            ParameterName = "@ename",
+                            SqlDbType =  System.Data.
+                            SqlDbType.VarChar,
+                            Size = 100,
+                            Direction = System.Data.
+                            ParameterDirection.Input,
+                            Value = "HARRY"},
+
+
+
+                         new SqlParameter() {
+                            ParameterName = "@job",
+                            SqlDbType =  System.Data.
+                            SqlDbType.VarChar,
+                            Size = 100,
+                            Direction = System.Data.
+                            ParameterDirection.Input,
+                            Value = "INTERN"},
+
+
+                         new SqlParameter() {
+                            ParameterName = "@mgr",
+                            SqlDbType =  System.Data.
+                            SqlDbType.VarChar,
+                            Size = 100,
+                            Direction = System.Data.
+                            ParameterDirection.Input,
+                            Value = "7839"},
+
+
+                         new SqlParameter() {
+                            ParameterName = "@hiredate",
+                            SqlDbType =  System.Data.
+                            SqlDbType.DateTime,
+                            Size = 100,
+                            Direction = System.Data.
+                            ParameterDirection.Input,
+                            Value = DateTime.Now},
+
+
+                         new SqlParameter() {
+                            ParameterName = "@sal",
+                            SqlDbType =  System.Data.
+                            SqlDbType.Int,
+                            Size = 100,
+                            Direction = System.Data.
+                            ParameterDirection.Input,
+                            Value = 75000},
+                        
+                         
+                         new SqlParameter() {
+                            ParameterName = "@comm",
+                            SqlDbType =  System.Data.
+                            SqlDbType.Int,
+                            Size = 100,
+                            Direction = System.Data.
+                            ParameterDirection.Input,
+                            Value = 750},
+
+                         new SqlParameter() {
+                            ParameterName = "@deptno",
+                            SqlDbType =  System.Data.
+                            SqlDbType.Int,
+                            Size = 100,
+                            Direction = System.Data.
+                            ParameterDirection.Input,
+                            Value = 30}
+                      };
+
+            try
+            {
+                var result = ctx.Database.ExecuteSqlRaw("InsertEmployee @empno,  @ename, @job, @mgr, @hiredate, @sal, @comm, @deptno", param);
+                Console.WriteLine("added");
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            Console.WriteLine("update successful");
+       }
 
     }
 }
