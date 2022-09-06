@@ -21,7 +21,7 @@ namespace Batch1_DET_2022
             //GetEmployeesSP();
             GetEmployeesFromDept();
             //RemoveEmpUsingID();
-            CallStoredProcwithSQLParamater_insert();
+            //CallStoredProcwithSQLParamater_insert();
 
         }
 
