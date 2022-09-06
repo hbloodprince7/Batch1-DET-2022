@@ -1,5 +1,6 @@
 ﻿using Batch1_DET_2022.Data;
 using Batch1_DET_2022.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,92 @@ namespace Batch1_DET_2022
             //AddNewBook();
             //DeleteBook();
             //UpdateBook();
-            GetBooks();
+            //GetBooks();
+
+            //AddNewOrder();
+
+            //AddOrderForCust();
+            //UpdateCustInfo();
+            //GetAllCustomersWithOrder_EagerLoading();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
+
+        private static void AddNewOrder()
+        {
+            var ctx = new BookContext();
+            Customer customer = new Customer();
+            customer.ID = 7735;
+            customer.Name = "Ben Ulrich";
+            customer.Age = 62;
+            Order ord = new Order();
+            ord.Order_ID = 7501;
+            ord.Amount = 9200;
+            ord.OrderDate = DateTime.Now;
+
+            ord.cust = customer;
+            try
+            {
+                ctx.Orders.Add(ord);
+                ctx.SaveChanges();
+                Console.WriteLine("New Order Added");
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+            }
+
+        }
+        private static void AddOrderForCust()
+        {
+            var ctx = new BookContext();
+            
+            var customer = ctx.Customers.Where(e => e.ID == 7735).SingleOrDefault();
+            Order ord = new Order();
+            ord.Order_ID = 85;
+            ord.Amount = 725;
+            ord.OrderDate = DateTime.Now;
+            ord.cust = customer;
+            try
+            {
+                ctx.Orders.Add(ord);
+                ctx.SaveChanges();
+                Console.WriteLine($"New Order Added for Customer - {customer.Name}");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+            }
+
+        }
+
+
+
+
+
+
         private static void AddNewBook()
         {
             var ctx = new BookContext();
@@ -89,6 +174,50 @@ namespace Batch1_DET_2022
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+        private static void GetAllCustomersWithOrder_EagerLoading()
+        {
+            //Eager loading means that the related data is loaded
+            //from the database as part of the initial query.
+            var ctx = new BookContext();
+            try
+            {
+                var customers = ctx.Customers.Include("Orders");
+
+                //var customers = ctx.Customers.Include(o => o.Orders);                   
+
+
+
+                foreach (var customer in customers)
+                {
+                    Console.WriteLine(customer.Name);
+                    Console.WriteLine("----->");
+
+
+
+
+                    foreach (var order in customer.Orders)
+                    {
+                        Console.WriteLine("Order Amount:" + order.Amount.ToString() + " Order ID:" + order.Order_ID);
+                    }
+                    Console.WriteLine("-----");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        private static void UpdateCustInfo()
+        {
+            var ctx = new BookContext();
+            var customer = ctx.Customers.Where(e => e.ID == 7735).SingleOrDefault();
+            customer.ID = 7735;
+            customer.Name = "Ben Urich";
+            ctx.Customers.Update(customer);
+            ctx.SaveChanges();
+            Console.WriteLine("Updated Customer Mr. Urich");
+
         }
     }
 }
