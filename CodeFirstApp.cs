@@ -13,16 +13,18 @@ namespace Batch1_DET_2022
     {
         static void Main(string[] args)
         {
-            AddNewBook();
+            //AddNewBook();
+            //DeleteBook();
+            UpdateBook();
         }
         private static void AddNewBook()
         {
             var ctx = new BookContext();
             Book book = new Book();
-            book.BookID = 1;
-            book.BookName = "SPIDERMAN #1";
+            book.BookID = 2;
+            book.BookName = "THOR #77";
             book.author = "Stan Lee";
-            book.price = 69;
+            book.price = 60;
 
             try
             {
@@ -35,5 +37,48 @@ namespace Batch1_DET_2022
                 Console.WriteLine(ex.InnerException.Message) ;
             }
         }   
+        private static void DeleteBook()
+        {
+            var ctx = new BookContext();
+            Book book = new Book();
+            book.BookID = 1;
+            book.BookName = "SPIDERMAN #1";
+            book.author = "Stan Lee";
+            book.price = 69;
+
+            try
+            {
+                ctx.Books.Remove(book);
+                ctx.SaveChanges() ;
+                Console.WriteLine($"Removed {book.BookName} Succesfully");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message) ;
+            }
+        }
+        private static void UpdateBook()
+        {
+            var ctx = new BookContext();
+            Book book = new Book();
+            book.BookID = 73;
+            book.BookName = "SPIDER MAN SPECIAL EDITION";
+            book.author = "Steve Ditko";
+            book.price = 70;
+
+            try
+            {
+                ctx.Books.Update(book);
+                ctx.SaveChanges();
+                Console.WriteLine($"Book {book.BookID} Updated");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+
+        }
     }
 }
