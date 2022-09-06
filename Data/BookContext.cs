@@ -16,6 +16,10 @@ namespace Batch1_DET_2022.Data
 
         public virtual DbSet<Book> Books { get; set; }
 
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

@@ -15,7 +15,8 @@ namespace Batch1_DET_2022
         {
             //AddNewBook();
             //DeleteBook();
-            UpdateBook();
+            //UpdateBook();
+            GetBooks();
         }
         private static void AddNewBook()
         {
@@ -40,11 +41,10 @@ namespace Batch1_DET_2022
         private static void DeleteBook()
         {
             var ctx = new BookContext();
-            Book book = new Book();
-            book.BookID = 1;
-            book.BookName = "SPIDERMAN #1";
-            book.author = "Stan Lee";
-            book.price = 69;
+            var book = ctx.Books.Where(e => e.BookID == 73).SingleOrDefault();
+            book.BookID = 73;
+            book.BookName = "SPIDERMAN SPECIAL EDITION";
+
 
             try
             {
@@ -61,24 +61,34 @@ namespace Batch1_DET_2022
         private static void UpdateBook()
         {
             var ctx = new BookContext();
-            Book book = new Book();
+            var book = ctx.Books.Where(e => e.BookID == 73).SingleOrDefault();
             book.BookID = 73;
-            book.BookName = "SPIDER MAN SPECIAL EDITION";
-            book.author = "Steve Ditko";
-            book.price = 70;
-
+            book.BookName = "SPIDERMAN SPECIAL EDITION";
             try
             {
-                ctx.Books.Update(book);
+
+                ctx.Update(book);
                 ctx.SaveChanges();
-                Console.WriteLine($"Book {book.BookID} Updated");
+                Console.WriteLine($"Updated {book.BookID}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException.Message);
+            }
+        }
+        private static void GetBooks()
+        {
+            var ctx = new BookContext();
+            var book = ctx.Books;
+            try
+            {
+                foreach (var b in book)
+                    Console.WriteLine($"{b.BookName} by {b.author}");
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-
-
         }
     }
 }
