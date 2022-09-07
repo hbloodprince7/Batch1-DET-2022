@@ -24,7 +24,7 @@ namespace Batch1_DET_2022.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=48B0LG2-SHEL\\SQLEXPRESS;Database=Training;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=48B0LG2-SHEL\\SQLEXPRESS;Database=Training;Trusted_Connection=True;MultipleACtiveResultSets=True");
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

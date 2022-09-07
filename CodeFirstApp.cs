@@ -24,6 +24,8 @@ namespace Batch1_DET_2022
             //AddOrderForCust();
             //UpdateCustInfo();
             //GetAllCustomersWithOrder_EagerLoading();
+            //GetAllCustomersWithOrder_ExplicitLoading();
+            Disconnectedarchitecture();
 
 
 
@@ -98,6 +100,28 @@ namespace Batch1_DET_2022
 
         }
 
+        private static void Disconnectedarchitecture()
+        {
+            var ctx = new BookContext();
+            var customer = ctx.Customers.Where(c => c.ID == 1378).SingleOrDefault();
+            ctx.Dispose();
+            UpdateCustomerName(customer);
+        }
+        private static void UpdateCustomerName(Customer customer)
+        {
+            var ctx = new BookContext();
+            customer.Name = "Mike Jason";
+            Console.WriteLine(ctx.Entry(customer).State.ToString());
+            //ctx.Update<Customer>(customer);
+            //OR
+            ctx.Update(customer);
+            //OR
+            //ctx.Customers.Update(customer);
+            //OR
+            //  ctx.Attach(customer).State = EntityState.Modified;
+            ctx.SaveChanges();
+            Console.WriteLine("customer name is updated via disconnected mode");
+        }
 
 
 
@@ -208,6 +232,45 @@ namespace Batch1_DET_2022
                 Console.WriteLine(ex.Message);
             }
         }
+
+        private static void GetAllCustomersWithOrder_ExplicitLoading()
+        {
+            //Explicit loading means that the related data is
+            //explicitly loaded from the database at a later time.
+            //Needs MARS to be set to TRUE in connection string
+            var ctx = new BookContext();
+            try
+            {
+                var customers = ctx.Customers;
+
+
+
+                foreach (var customer in customers)
+                {
+                    Console.WriteLine(customer.Name);
+                    Console.WriteLine("----->");
+
+
+
+                    ctx.Entry(customer).Collection(o => o.Orders).Load();
+
+                    foreach (var order in customer.Orders)
+                    {
+                        Console.WriteLine(order.Amount.ToString() + "  " + order.OrderDate.ToString());
+
+
+
+                    }
+                    Console.WriteLine("-----");
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         private static void UpdateCustInfo()
         {
             var ctx = new BookContext();
